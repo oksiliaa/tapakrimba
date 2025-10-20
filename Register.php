@@ -3,23 +3,32 @@ session_start();
 include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
+    $username = trim($_POST['username']);
     $password = $_POST['password'];
+    $confirm = $_POST['confirm'];
 
-    $sql = "SELECT * FROM admins WHERE username='$username'";
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-        if (password_verify($password, $row['password'])) {
-            $_SESSION['admin'] = $username;
-            header("Location: dashboard.php");
-            exit;
-        } else {
-            $error = "❌ Password salah!";
-        }
+    // Validasi password cocok
+    if ($password !== $confirm) {
+        $error = "⚠️ Password dan Konfirmasi tidak cocok!";
     } else {
-        $error = "⚠️ Username tidak ditemukan!";
+        // Cek apakah username sudah ada
+        $check = "SELECT * FROM admins WHERE username='$username'";
+        $result = mysqli_query($conn, $check);
+
+        if (mysqli_num_rows($result) > 0) {
+            $error = "⚠️ Username sudah digunakan!";
+        } else {
+            // Hash password
+            $hashed = password_hash($password, PASSWORD_DEFAULT);
+
+            $insert = "INSERT INTO admins (username, password) VALUES ('$username', '$hashed')";
+            if (mysqli_query($conn, $insert)) {
+                $success = "✅ Registrasi berhasil! Silakan login.";
+                header("refresh:2;url=login.php");
+            } else {
+                $error = "❌ Terjadi kesalahan, coba lagi!";
+            }
+        }
     }
 }
 ?>
@@ -29,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - Website Jaringan</title>
+    <title>Register Admin - Website Jaringan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -44,26 +53,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             overflow: hidden;
         }
 
-        /* Animasi masuk */
         @keyframes fadeSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from {opacity: 0; transform: translateY(-30px);}
+            to {opacity: 1; transform: translateY(0);}
         }
 
-        /* Glow animasi tombol */
         @keyframes glowing {
             0% { box-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff; }
             50% { box-shadow: 0 0 20px #00d1ff, 0 0 40px #00d1ff; }
             100% { box-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff; }
         }
 
-        .login-card {
+        .register-card {
             background: rgba(20, 20, 30, 0.95);
             border-radius: 15px;
             padding: 40px 30px;
@@ -74,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             animation: fadeSlideIn 1s ease forwards;
         }
 
-        .login-card h3 {
+        .register-card h3 {
             text-align: center;
             margin-bottom: 25px;
             font-weight: bold;
@@ -92,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-shadow: 0 0 8px #00bfff;
         }
 
-        .btn-login {
+        .btn-register {
             width: 100%;
             background: linear-gradient(90deg, #00bfff, #0077ff);
             border: none;
@@ -103,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             animation: glowing 2s infinite ease-in-out;
             transition: 0.3s;
         }
-        .btn-login:hover {
+        .btn-register:hover {
             transform: scale(1.03);
         }
 
@@ -112,6 +113,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-color: rgba(255, 50, 50, 0.1);
             border: 1px solid #ff4c4c;
             color: #ff7b7b;
+        }
+        .alert-success {
+            text-align: center;
+            background-color: rgba(0, 255, 100, 0.1);
+            border: 1px solid #00ff99;
+            color: #00ff99;
         }
 
         .footer-text {
@@ -122,7 +129,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             animation: fadeSlideIn 2s ease forwards;
         }
 
-        /* Efek partikel ringan di background */
         .circle {
             position: absolute;
             border-radius: 50%;
@@ -142,11 +148,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="circle" style="width:100px; height:100px; bottom:10%; right:10%; animation-delay:1s;"></div>
     <div class="circle" style="width:80px; height:80px; top:60%; left:60%; animation-delay:2s;"></div>
 
-    <div class="login-card">
-        <h3>🔐 Login Admin</h3>
+    <div class="register-card">
+        <h3>📝 Register Admin</h3>
 
         <?php if (isset($error)): ?>
             <div class="alert py-2"><?= $error ?></div>
+        <?php endif; ?>
+        <?php if (isset($success)): ?>
+            <div class="alert-success py-2"><?= $success ?></div>
         <?php endif; ?>
 
         <form method="POST">
@@ -160,11 +169,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
             </div>
 
-            <button type="submit" class="btn btn-login">Masuk</button>
+            <div class="mb-3">
+                <label class="form-label">Konfirmasi Password</label>
+                <input type="password" name="confirm" class="form-control" placeholder="Ulangi password" required>
+            </div>
+
+            <button type="submit" class="btn btn-register">Daftar</button>
         </form>
 
         <div class="footer-text">
-            Belum punya akun ? <a href = "Register.php"> Register </a>
+            Sudah punya akun? <a href="login.php"> Login </a>
         </div>
     </div>
 
