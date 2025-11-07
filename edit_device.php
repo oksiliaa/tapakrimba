@@ -2,125 +2,156 @@
 session_start();
 include 'config.php';
 
-// Cek login
 if (!isset($_SESSION['admin'])) {
     header("Location: login.php");
     exit();
 }
 
 $id = $_GET['id'];
-$result = $conn->query("SELECT * FROM devices WHERE id = $id");
-$row = $result->fetch_assoc();
+$result = $conn->query("SELECT * FROM devices WHERE id='$id'");
+$data = $result->fetch_assoc();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST['update'])) {
     $name = $_POST['name'];
     $brand = $_POST['brand'];
-    $ip_address = $_POST['ip_address'];
+    $ip = $_POST['ip_address'];
     $location = $_POST['location'];
     $type = $_POST['type'];
     $status = $_POST['status'];
-    $installed_date = $_POST['installed_date'];
+    $date = $_POST['installed_date'];
 
-    $query = "UPDATE devices 
-              SET name='$name', brand='$brand', ip_address='$ip_address', location='$location',
-                  type='$type', status='$status', installed_date='$installed_date' 
-              WHERE id=$id";
-
-    if ($conn->query($query)) {
-        header("Location: index.php");
-        exit();
+    $update = "UPDATE devices SET name='$name', brand='$brand', ip_address='$ip', location='$location', 
+               type='$type', status='$status', installed_date='$date' WHERE id='$id'";
+    if ($conn->query($update)) {
+        echo "<script>alert('Data berhasil diperbarui!'); window.location='index.php';</script>";
     } else {
-        echo "Error: " . $conn->error;
+        echo "<script>alert('Gagal memperbarui data.');</script>";
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Perangkat - Website Jaringan</title>
+    <title>Ubah Perangkat</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="asset/foto.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(270deg, #6a11cb, #2575fc, #00c6ff, #6a11cb);
+            background-size: 800% 800%;
+            animation: gradientMove 12s ease infinite;
+            min-height: 100vh;
+            font-family: "Poppins", sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .card {
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card-form {
+            width: 100%;
+            max-width: 550px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .form-control {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .form-label {
-            font-weight: 500;
+
+        .form-control::placeholder {
+            color: #dcdcdc;
+        }
+
+        .form-control:focus {
+            background: rgba(255,255,255,0.25);
+            box-shadow: none;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            border: none;
+            border-radius: 10px;
+        }
+
+        .btn-success:hover {
+            transform: scale(1.03);
+            transition: 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        a {
+            color: #ffebcd;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-
-<!-- Navbar -->
-<nav class="navbar navbar-dark bg-primary p-3 shadow">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <span class="navbar-brand">Edit Perangkat</span>
-        <a href="index.php" class="btn btn-light btn-sm">← Kembali</a>
-    </div>
-</nav>
-
-<!-- Konten -->
-<div class="container mt-5">
-    <div class="card p-4">
-        <h3 class="mb-4 text-primary">Edit Data Perangkat</h3>
+    <div class="card-form">
+        <h3 class="text-center mb-4">
+            <i class="bi bi-pencil-square me-2"></i>Ubah Perangkat
+        </h3>
 
         <form method="POST">
             <div class="mb-3">
-                <label class="form-label">Nama Perangkat</label>
-                <input type="text" name="name" class="form-control" value="<?= $row['name'] ?>" required>
+                <input type="text" name="name" value="<?= $data['name'] ?>" class="form-control" required>
             </div>
-
             <div class="mb-3">
-                <label class="form-label">Merek</label>
-                <input type="text" name="brand" class="form-control" value="<?= $row['brand'] ?>" required>
+                <input type="text" name="brand" value="<?= $data['brand'] ?>" class="form-control" required>
             </div>
-
             <div class="mb-3">
-                <label class="form-label">IP Address</label>
-                <input type="text" name="ip_address" class="form-control" value="<?= $row['ip_address'] ?>" required>
+                <input type="text" name="ip_address" value="<?= $data['ip_address'] ?>" class="form-control" required>
             </div>
-
             <div class="mb-3">
-                <label class="form-label">Lokasi</label>
-                <input type="text" name="location" class="form-control" value="<?= $row['location'] ?>" required>
+                <input type="text" name="location" value="<?= $data['location'] ?>" class="form-control" required>
             </div>
-
             <div class="mb-3">
-                <label class="form-label">Jenis</label>
-                <select name="type" class="form-select" required>
-                    <option <?= $row['type'] == 'Router' ? 'selected' : '' ?>>Router</option>
-                    <option <?= $row['type'] == 'Switch' ? 'selected' : '' ?>>Switch</option>
-                    <option <?= $row['type'] == 'Access Point' ? 'selected' : '' ?>>Access Point</option>
-                    <option <?= $row['type'] == 'Server' ? 'selected' : '' ?>>Server</option>
+                <input type="text" name="type" value="<?= $data['type'] ?>" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <select name="status" class="form-control" required>
+                    <option value="Aktif" <?= $data['status']=='Aktif'?'selected':'' ?>>Aktif</option>
+                    <option value="Nonaktif" <?= $data['status']=='Nonaktif'?'selected':'' ?>>Nonaktif</option>
+                    <option value="Perawatan" <?= $data['status']=='Perawatan'?'selected':'' ?>>Perawatan</option>
                 </select>
             </div>
-
             <div class="mb-3">
-                <label class="form-label">Status</label>
-                <select name="status" class="form-select" required>
-                    <option <?= $row['status'] == 'Aktif' ? 'selected' : '' ?>>Aktif</option>
-                    <option <?= $row['status'] == 'Nonaktif' ? 'selected' : '' ?>>Nonaktif</option>
-                    <option <?= $row['status'] == 'Maintenance' ? 'selected' : '' ?>>Maintenance</option>
-                </select>
+                <input type="date" name="installed_date" value="<?= $data['installed_date'] ?>" class="form-control" required>
             </div>
-
-            <div class="mb-4">
-                <label class="form-label">Tanggal Pasang</label>
-                <input type="date" name="installed_date" class="form-control" value="<?= $row['installed_date'] ?>" required>
-            </div>
-
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-success me-2">💾 Simpan Perubahan</button>
-                <a href="index.php" class="btn btn-secondary">Batal</a>
+            <button type="submit" name="update" class="btn btn-success w-100">Perbarui</button>
+            <div class="text-center mt-3">
+                <a href="index.php" class="text-white text-decoration-none fw-semibold">
+                    <i class="bi bi-arrow-left-circle me-1"></i>Kembali ke Dashboard
+                </a>
             </div>
         </form>
     </div>
-</div>
-
 </body>
 </html>
