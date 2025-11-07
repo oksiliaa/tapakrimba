@@ -170,9 +170,13 @@ $result = $conn->query("SELECT * FROM devices ORDER BY id DESC");
                 <td>{$row['status']}</td>
                 <td>{$row['installed_date']}</td>
                 <td>
-                    <a href='edit_device.php?id={$row['id']}' class='btn btn-warning btn-sm me-1'>✏️ Edit</a>
-                    <a href='delete_device.php?id={$row['id']}' class='btn btn-danger btn-sm' onclick=\"return confirm('Yakin ingin menghapus perangkat ini?')\">🗑️ Hapus</a>
-                </td>
+        <a href='edit_device.php?id={$row['id']}' class='btn btn-warning btn-sm me-1 text-white'>
+            <i class='bi bi-pencil-square me-1'></i>Edit
+        </a>
+        <a href='delete_device.php?id={$row['id']}' class='btn btn-danger btn-sm' onclick=\"return confirm('Yakin ingin menghapus perangkat ini?')\">
+            <i class='bi bi-trash me-1'></i>Hapus
+        </a>
+    </td>
               </tr>";
         $no++;
     }
