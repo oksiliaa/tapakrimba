@@ -5,25 +5,24 @@ include 'db.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
-    $confirm = $_POST['confirm'];
+    $confirm  = $_POST['confirm'];
 
     // Validasi password cocok
     if ($password !== $confirm) {
         $error = "⚠️ Password dan Konfirmasi tidak cocok!";
     } else {
-        // Cek apakah username sudah ada
+        // Cek username
         $check = "SELECT * FROM admins WHERE username='$username'";
         $result = mysqli_query($conn, $check);
 
         if (mysqli_num_rows($result) > 0) {
             $error = "⚠️ Username sudah digunakan!";
         } else {
-            // Hash password
             $hashed = password_hash($password, PASSWORD_DEFAULT);
-
             $insert = "INSERT INTO admins (username, password) VALUES ('$username', '$hashed')";
+
             if (mysqli_query($conn, $insert)) {
-                $success = "✅ Registrasi berhasil! Silakan login.";
+                $success = "✅ Registrasi berhasil! Mengarahkan ke halaman login...";
                 header("refresh:2;url=login.php");
             } else {
                 $error = "❌ Terjadi kesalahan, coba lagi!";
@@ -32,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -43,113 +41,101 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <style>
         body {
-            background: radial-gradient(circle at top, #0a192f, #000);
-            color: #fff;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', sans-serif;
-            overflow: hidden;
-        }
-
-        @keyframes fadeSlideIn {
-            from {opacity: 0; transform: translateY(-30px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-
-        @keyframes glowing {
-            0% { box-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff; }
-            50% { box-shadow: 0 0 20px #00d1ff, 0 0 40px #00d1ff; }
-            100% { box-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff; }
+            font-family: "Poppins", sans-serif;
         }
 
         .register-card {
-            background: rgba(20, 20, 30, 0.95);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
             border-radius: 15px;
-            padding: 40px 30px;
-            box-shadow: 0 0 30px rgba(0,255,255,0.1);
             width: 100%;
             max-width: 400px;
-            backdrop-filter: blur(5px);
-            animation: fadeSlideIn 1s ease forwards;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            animation: fadeIn 0.6s ease-in-out;
         }
 
-        .register-card h3 {
+        h3 {
             text-align: center;
-            margin-bottom: 25px;
-            font-weight: bold;
-            color: #00d1ff;
-            text-shadow: 0 0 10px rgba(0,209,255,0.6);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
         }
 
         .form-control {
-            background-color: #0d1b2a;
-            color: #fff;
-            border: 1px solid #00d1ff;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
         }
+
+        .form-control::placeholder {
+            color: #e0e0e0;
+        }
+
         .form-control:focus {
-            border-color: #00bfff;
-            box-shadow: 0 0 8px #00bfff;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: none;
+            outline: none;
+            color: white;
         }
 
         .btn-register {
-            width: 100%;
-            background: linear-gradient(90deg, #00bfff, #0077ff);
+            background-color: #6a11cb;
+            background-image: linear-gradient(315deg, #6a11cb 0%, #2575fc 74%);
             border: none;
-            padding: 10px;
-            font-weight: bold;
-            border-radius: 8px;
+            width: 100%;
+            padding: 0.6rem;
+            font-weight: 500;
             color: white;
-            animation: glowing 2s infinite ease-in-out;
-            transition: 0.3s;
-        }
-        .btn-register:hover {
-            transform: scale(1.03);
+            transition: 0.3s ease;
+            border-radius: 8px;
         }
 
-        .alert {
-            text-align: center;
-            background-color: rgba(255, 50, 50, 0.1);
-            border: 1px solid #ff4c4c;
-            color: #ff7b7b;
-        }
-        .alert-success {
-            text-align: center;
-            background-color: rgba(0, 255, 100, 0.1);
-            border: 1px solid #00ff99;
-            color: #00ff99;
+        .btn-register:hover {
+            background-image: linear-gradient(315deg, #2575fc 0%, #6a11cb 74%);
         }
 
         .footer-text {
             text-align: center;
-            margin-top: 15px;
-            font-size: 0.9em;
-            color: #aaa;
-            animation: fadeSlideIn 2s ease forwards;
+            margin-top: 1rem;
+            font-size: 0.9rem;
         }
 
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(0, 209, 255, 0.15);
-            animation: float 10s infinite ease-in-out;
+        .footer-text a {
+            color: #fff;
+            text-decoration: underline;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); opacity: 0.8; }
-            50% { transform: translateY(-20px); opacity: 0.3; }
+
+        .alert {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ffb3b3;
+            border: none;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 0, 0.2);
+            color: #b3ffb3;
+            border: none;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px);}
+            to { opacity: 1; transform: translateY(0);}
         }
     </style>
 </head>
 <body>
-
-    <!-- Partikel latar -->
-    <div class="circle" style="width:60px; height:60px; top:20%; left:15%;"></div>
-    <div class="circle" style="width:100px; height:100px; bottom:10%; right:10%; animation-delay:1s;"></div>
-    <div class="circle" style="width:80px; height:80px; top:60%; left:60%; animation-delay:2s;"></div>
-
     <div class="register-card">
-        <h3>📝 Register Admin</h3>
+        <h3>Register Admin</h3>
 
         <?php if (isset($error)): ?>
             <div class="alert py-2"><?= $error ?></div>
@@ -178,9 +164,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
 
         <div class="footer-text">
-            Sudah punya akun? <a href="login.php"> Login </a>
+            Sudah punya akun? <a href="login.php">Login</a>
         </div>
     </div>
-
 </body>
 </html>
