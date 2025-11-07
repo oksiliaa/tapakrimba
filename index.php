@@ -17,6 +17,12 @@ $result = $conn->query("SELECT * FROM devices ORDER BY id DESC");
     <meta charset="UTF-8">
     <title>Dashboard Admin - Website Jaringan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
 
     <style>
         body {
@@ -116,13 +122,21 @@ $result = $conn->query("SELECT * FROM devices ORDER BY id DESC");
 
 <nav class="navbar navbar-dark p-3">
     <div class="container-fluid d-flex justify-content-between align-items-center">
-        <span class="navbar-brand">📡 Website Jaringan - Dashboard</span>
+        <div class="d-flex align-items-center">
+            <img src="asset/logo.png" alt="Logo" width="45" height="35" class="me-2">
+            <span class="navbar-brand mb-0 h5">Inventaris Hardware</span>
+        </div>
         <div>
-            <a href="add_device.php" class="btn btn-light btn-sm me-2">➕ Tambah Perangkat</a>
-            <a href="logout.php" class="btn btn-danger btn-sm">🚪 Logout</a>
+            <a href="add_device.php" class="btn btn-light btn-sm me-2">
+                <i class="bi bi-plus-circle me-1"></i> Tambah Perangkat
+            </a>
+            <a href="logout.php" class="btn btn-danger btn-sm">
+                <i class="bi bi-box-arrow-right me-1"></i> Logout
+            </a>
         </div>
     </div>
 </nav>
+
 
 <div class="container my-5">
     <div class="card-table">

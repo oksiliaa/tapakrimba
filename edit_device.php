@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <nav class="navbar navbar-dark bg-primary p-3 shadow">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <span class="navbar-brand">Edit Perangkat</span>
-        <a href="dashboard.php" class="btn btn-light btn-sm">← Kembali</a>
+        <a href="index.php" class="btn btn-light btn-sm">← Kembali</a>
     </div>
 </nav>
 
@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-success me-2">💾 Simpan Perubahan</button>
-                <a href="dashboard.php" class="btn btn-secondary">Batal</a>
+                <a href="index.php" class="btn btn-secondary">Batal</a>
             </div>
         </form>
     </div>
