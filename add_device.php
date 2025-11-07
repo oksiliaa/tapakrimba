@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               VALUES ('$name', '$brand', '$ip_address', '$location', '$type', '$status', '$installed_date')";
     
     if ($conn->query($query)) {
-        header("Location: dashboard.php");
+        header("Location: index.php");
         exit();
     } else {
         echo "Error: " . $conn->error;
