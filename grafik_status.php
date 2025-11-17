@@ -101,6 +101,28 @@ $maint = $conn->query("SELECT COUNT(*) AS total FROM devices WHERE status='Maint
 
         <div class="card-glass text-center">
             <canvas id="statusChart"></canvas>
+            <div class="row mt-4 text-center g-3">
+    <div class="col-4">
+        <div class="p-3 card-glass-small">
+            <h4><?= $aktif ?></h4>
+            <p class="m-0">Aktif</p>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="p-3 card-glass-small">
+            <h4><?= $nonaktif ?></h4>
+            <p class="m-0">Nonaktif</p>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="p-3 card-glass-small">
+            <h4><?= $maint ?></h4>
+            <p class="m-0">Maintenance</p>
+        </div>
+    </div>
+</div>
+
+           
         </div>
 
         <div class="text-center mt-3">
