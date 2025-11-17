@@ -17,20 +17,12 @@ $result = $conn->query("SELECT * FROM devices ORDER BY id DESC");
     <meta charset="UTF-8">
     <title>Beranda Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<<<<<<< HEAD
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-=======
     <link rel="icon" type="image/png" href="asset/foto.png">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
->>>>>>> 0966293 (Update add_device,index,login,Register,edit_device)
 
 
     <style>
@@ -187,78 +179,12 @@ $result = $conn->query("SELECT * FROM devices ORDER BY id DESC");
     </style>
 </head>
 <body>
-<<<<<<< HEAD
-
-<nav class="navbar navbar-dark p-3">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-            <img src="asset/logo.png" alt="Logo" width="45" height="35" class="me-2">
-            <span class="navbar-brand mb-0 h5">Inventaris Hardware</span>
-        </div>
-        <div>
-            <a href="add_device.php" class="btn btn-light btn-sm me-2">
-                <i class="bi bi-plus-circle me-1"></i> Tambah Perangkat
-            </a>
-            <a href="logout.php" class="btn btn-danger btn-sm">
-                <i class="bi bi-box-arrow-right me-1"></i> Logout
-            </a>
-        </div>
-=======
     <div class="bokeh">
         <div class="circle"></div>
         <div class="circle"></div>
         <div class="circle"></div>
->>>>>>> 0966293 (Update add_device,index,login,Register,edit_device)
     </div>
 
-<<<<<<< HEAD
-
-<div class="container my-5">
-    <div class="card-table">
-        <h3 class="text-center mb-4">Daftar Perangkat Jaringan</h3>
-        <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nama</th>
-                        <th>Merek</th>
-                        <th>IP Address</th>
-                        <th>Lokasi</th>
-                        <th>Jenis</th>
-                        <th>Status</th>
-                        <th>Tanggal Pasang</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-    $no = 1; // mulai nomor dari 1
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr>
-                <td>{$no}</td>
-                <td>{$row['name']}</td>
-                <td>{$row['brand']}</td>
-                <td>{$row['ip_address']}</td>
-                <td>{$row['location']}</td>
-                <td>{$row['type']}</td>
-                <td>{$row['status']}</td>
-                <td>{$row['installed_date']}</td>
-                <td>
-        <a href='edit_device.php?id={$row['id']}' class='btn btn-warning btn-sm me-1 text-white'>
-            <i class='bi bi-pencil-square me-1'></i>Edit
-        </a>
-        <a href='delete_device.php?id={$row['id']}' class='btn btn-danger btn-sm' onclick=\"return confirm('Yakin ingin menghapus perangkat ini?')\">
-            <i class='bi bi-trash me-1'></i>Hapus
-        </a>
-    </td>
-              </tr>";
-        $no++;
-    }
-?>
-                </tbody>
-            </table>
-=======
     <nav class="navbar navbar-dark p-3">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
@@ -273,7 +199,6 @@ $result = $conn->query("SELECT * FROM devices ORDER BY id DESC");
                     <i class="bi bi-box-arrow-right"></i> Logout
                 </a>
             </div>
->>>>>>> 0966293 (Update add_device,index,login,Register,edit_device)
         </div>
     </nav>
 

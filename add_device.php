@@ -21,12 +21,7 @@ if (isset($_POST['submit'])) {
     $query = "INSERT INTO devices (name, brand, ip_address, location, type, status, installed_date) 
               VALUES ('$name', '$brand', '$ip', '$location', '$type', '$status', '$date')";
     if ($conn->query($query)) {
-<<<<<<< HEAD
-        header("Location: index.php");
-        exit();
-=======
         echo "<script>alert('Perangkat berhasil ditambahkan!'); window.location='index.php';</script>";
->>>>>>> 0966293 (Update add_device,index,login,Register,edit_device)
     } else {
         echo "<script>alert('Gagal menambah perangkat.');</script>";
     }
