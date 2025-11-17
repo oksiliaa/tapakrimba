@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         body {
             margin: 0;
             height: 100vh;
-            font-family: "Poppins", sans-serif;
+            font-family: "Didot", Rufina;
             display: flex;
             justify-content: center;
             align-items: center;

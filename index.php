@@ -26,157 +26,206 @@ $result = $conn->query("SELECT * FROM devices ORDER BY id DESC");
 
 
     <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: "Poppins", sans-serif;
-            color: white;
-            overflow-x: hidden;
-            background: linear-gradient(270deg, #6a11cb, #2575fc, #00c6ff, #6a11cb);
-            background-size: 800% 800%;
-            animation: gradientMove 12s ease infinite;
-        }
+        /* ============================================
+   ANIMASI BACKGROUND (GRADIENT)
+============================================ */
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Didot", Rufina;
+    color: white;
+    overflow-x: hidden;
+    background: linear-gradient(270deg, #6a11cb, #2575fc, #00c6ff, #6a11cb);
+    background-size: 800% 800%;
+    animation: gradientMove 12s ease infinite;
+    transition: background 0.4s ease;
+}
 
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-        /* Efek bokeh */
-        .bokeh {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-        }
+/* ============================================
+   BOKEH EFFECT
+============================================ */
+.bokeh {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
 
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.12);
-            animation: float 10s infinite ease-in-out;
-        }
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    animation: float 10s infinite ease-in-out;
+}
 
-        .circle:nth-child(1) { width: 200px; height: 200px; top: 10%; left: 20%; animation-delay: 0s; }
-        .circle:nth-child(2) { width: 150px; height: 150px; bottom: 20%; right: 15%; animation-delay: 3s; }
-        .circle:nth-child(3) { width: 250px; height: 250px; top: 60%; left: 60%; animation-delay: 6s; }
+.circle:nth-child(1) { width: 200px; height: 200px; top: 10%; left: 20%; animation-delay: 0s; }
+.circle:nth-child(2) { width: 150px; height: 150px; bottom: 20%; right: 15%; animation-delay: 3s; }
+.circle:nth-child(3) { width: 250px; height: 250px; top: 60%; left: 60%; animation-delay: 6s; }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
-            50% { transform: translateY(-40px) scale(1.1); opacity: 0.9; }
-        }
+@keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    50% { transform: translateY(-40px) scale(1.1); opacity: 0.9; }
+}
 
-        /* Navbar */
-        .navbar {
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
+/* ============================================
+   NAVBAR
+============================================ */
+.navbar {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
 
-        .navbar-brand {
-            font-weight: 600;
-            font-size: 1.2rem;
-            letter-spacing: 0.5px;
-        }
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
 
-        .btn {
-            transition: 0.2s ease;
-        }
-        .btn:hover {
-            transform: scale(1.05);
-        }
+/* ============================================
+   CARD TABEL
+============================================ */
+.card-table {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    animation: fadeIn 0.8s ease-in-out;
+}
 
-        .card-table {
-            position: relative;
-            z-index: 1;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-            animation: fadeIn 0.8s ease-in-out;
-        }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
 
-        table {
-            width: 100%;
-            color: white;
-            border-radius: 20px;
-            border-collapse: collapse;
-        }
+/* ============================================
+   TABEL PREMIUM
+============================================ */
+.table {
+    border-collapse: separate !important;
+    border-spacing: 0 10px;
+}
 
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
+.table thead th {
+    background: rgba(255,255,255,0.25);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #524e4eff;
+    padding: 20px;
+    border: none;
+    text-align: center;
+    backdrop-filter: blur(8px);
+}
 
-        thead {
-            background: rgba(255,255,255,0.15);
-        }
+.table tbody tr {
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    box-shadow: 0 10px 12px rgba(0,0,0,0.25);
+    transition: 0.25s ease;
+}
 
-        tbody tr {
-            animation: fadeUp 0.6s ease-in-out forwards;
-            opacity: 0;
-        }
+.table tbody tr td {
+    padding: 14px;
+    vertical-align: middle;
+    color: #2b2525ff;
+    border: none;
+    text-align: center;
+}
 
-        tbody tr:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
+.table tbody tr:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    background: rgba(255,255,255,0.22);
+}
 
-        .btn-warning {
-            background: linear-gradient(135deg, #f7971e, #ffd200);
-            border: none;
-            color: black;
-        }
+/* Border radius setiap row */
+.table tbody tr td:first-child {
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+}
+.table tbody tr td:last-child {
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+}
 
-        .btn-danger {
-            background: linear-gradient(135deg, #e52d27, #b31217);
-            border: none;
-        }
+/* Badge */
+.badge {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
+/* Tombol */
+.btn-warning, .btn-danger {
+    border-radius: 12px;
+    padding: 6px 10px;
+    font-weight: 500;
+}
 
-        @keyframes fadeUp {
-            from { transform: translateY(10px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+.btn-warning:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 10px #ffd86b;
+}
 
-        footer {
-            text-align: center;
-            color: rgba(255,255,255,0.7);
-            margin-top: 40px;
-            font-size: 0.9rem;
-        }
+.btn-danger:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 12px #ff6e6e;
+}
 
-        /* Input pencarian */
-        #search {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            border-radius: 10px;
-        }
-        #search::placeholder {
-            color: #e0e0e0;
-        }
-        #search:focus {
-            background: rgba(255,255,255,0.25);
-            box-shadow: none;
-            outline: none;
-        }
+/* ============================================
+   INPUT SEARCH
+============================================ */
+#search {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    border-radius: 10px;
+}
 
-        @media (max-width: 768px) {
-            table {
-                font-size: 0.85rem;
-            }
-        }
-    </style>
+#search::placeholder {
+    color: #e0e0e0;
+}
+
+#search:focus {
+    background: rgba(255,255,255,0.25);
+    box-shadow: none;
+    outline: none;
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+@media (max-width: 768px) {
+    table {
+        font-size: 0.85rem;
+    }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    margin-top: 40px;
+    font-size: 0.9rem;
+}
+
+</style>
 </head>
 <body>
     <div class="bokeh">
@@ -219,7 +268,7 @@ $result = $conn->query("SELECT * FROM devices ORDER BY id DESC");
                          <th class="text-center">Lokasi</th>
                          <th class="text-center">Jenis</th>
                          <th class="text-center">Status</th>
-                         <th class="text-center">Tanggal Pasang</th>
+                         <th class="text-center">Tanggal</th>
                          <th class="text-center">Aksi</th>
                         </tr>
                     </thead>

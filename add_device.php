@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
             background-size: 800% 800%;
             animation: gradientMove 12s ease infinite;
             min-height: 100vh;
-            font-family: "Poppins", sans-serif;
+            font-family: "Didot", Rufina;
             color: white;
             display: flex;
             justify-content: center;
