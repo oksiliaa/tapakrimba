@@ -244,6 +244,9 @@ footer {
                 <a href="add_device.php" class="btn btn-light btn-sm me-2">
                     <i class="bi bi-plus-circle"></i> Tambah Perangkat
                 </a>
+                <a href="grafik_status.php" class="btn btn-info btn-sm me-2">
+                      <i class="bi bi-pie-chart"></i> Grafik Status
+                </a>
                 <a href="logout.php" class="btn btn-danger btn-sm">
                     <i class="bi bi-box-arrow-right"></i> Logout
                 </a>
@@ -328,5 +331,7 @@ footer {
             });
         });
     </script>
+
+    
 </body>
 </html>
