@@ -139,7 +139,7 @@ if (isset($_POST['update'])) {
                 <select name="status" class="form-control" required>
                     <option value="Aktif" <?= $data['status']=='Aktif'?'selected':'' ?>>Aktif</option>
                     <option value="Nonaktif" <?= $data['status']=='Nonaktif'?'selected':'' ?>>Nonaktif</option>
-                    <option value="Perawatan" <?= $data['status']=='Perawatan'?'selected':'' ?>>Perawatan</option>
+                    <option value="Maintenance" <?= $data['status']=='Maintenance'?'selected':'' ?>>Maintenance</option>
                 </select>
             </div>
             <div class="mb-3">

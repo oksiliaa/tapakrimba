@@ -40,6 +40,25 @@ $maint = $conn->query("SELECT COUNT(*) AS total FROM devices WHERE status='Maint
             100% { background-position: 0% 50%; }
         }
 
+        /* ============================================
+            NAVBAR
+        ============================================ */
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+
         /* =======================
            Dikecilkan untuk desktop
            ======================= */
